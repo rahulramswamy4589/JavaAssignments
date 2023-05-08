@@ -16,18 +16,18 @@
 	public class EmpWrite {
 		public static void main(String[] args) throws IOException {
 			// Read employee details from input Excel sheet
-			FileInputStream file = new FileInputStream(new File(".\\src\\Read.xlsx"));
+			FileInputStream file = new FileInputStream(new File(".\\src\\test\\Read.xlsx"));
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			Sheet sheet = workbook.getSheetAt(0);
 			Map<String, String> employeeDetails = new LinkedHashMap<String, String>();
 			for (Row row : sheet) 
 			{
-				Cell nameCell = row.getCell(0);
-				Cell departmentCell = row.getCell(1);
-				if (nameCell != null && departmentCell != null) {
-					String name = nameCell.getStringCellValue();
-					String department = departmentCell.getStringCellValue();
-					employeeDetails.put(name, department);
+				Cell NameCell = row.getCell(0);
+				Cell DepCell = row.getCell(1);
+				if (NameCell != null && DepCell != null) {
+					String Name = NameCell.getStringCellValue();
+					String Dep = DepCell.getStringCellValue();
+					employeeDetails.put(Name, Dep);
 				}
 			}
 			file.close();	// till here it read the values from read xlsx.
@@ -39,20 +39,20 @@
 			headerRow.createCell(0).setCellValue("Employee ID");
 			headerRow.createCell(1).setCellValue("Name");
 			headerRow.createCell(2).setCellValue("Department");
-			for (String name : employeeDetails.keySet()) {
-				if( name.equalsIgnoreCase("Name")) {
+			for (String Name : employeeDetails.keySet()) {
+				if( Name.equalsIgnoreCase("Name")) {
 					continue;
 				}
-				String department = employeeDetails.get(name);
+				String Dep = employeeDetails.get(Name);
 				
 				id = id + 1;
 		Row row = sheet.createRow(id);
 				row.createCell(0).setCellValue(id);
-				row.createCell(1).setCellValue(name);
-				row.createCell(2).setCellValue(department);
+				row.createCell(1).setCellValue(Name);
+				row.createCell(2).setCellValue(Dep);
 			}
 			FileOutputStream outFile = new FileOutputStream(new File(".\\src\\output.xlsx"));
-			System.out.println("Data Uploaded Successfully");
+			System.out.println("Successfully");
 			workbook.write(outFile);
 			outFile.close();
 		}
